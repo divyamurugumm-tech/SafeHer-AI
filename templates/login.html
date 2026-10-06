@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | SafeHer AI</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.25), transparent 30%),
+                radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.20), transparent 30%),
+                #080b18;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        .background-circle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        .circle-one {
+            width: 300px;
+            height: 300px;
+            background: #7c3aed;
+            top: -120px;
+            left: -100px;
+        }
+
+        .circle-two {
+            width: 260px;
+            height: 260px;
+            background: #2563eb;
+            bottom: -100px;
+            right: -80px;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 650px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            overflow: hidden;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+            animation: appear 0.7s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* LEFT SIDE */
+
+        .welcome-section {
+            position: relative;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(124, 58, 237, 0.95),
+                    rgba(67, 56, 202, 0.88)
+                );
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 50px;
+        }
+
+        .brand-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.25);
+            font-size: 25px;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-name span {
+            color: #ddd6fe;
+        }
+
+        .welcome-section h1 {
+            font-size: 48px;
+            line-height: 1.08;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+        }
+
+        .welcome-section > p {
+            max-width: 430px;
+            font-size: 17px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.82);
+        }
+
+        .security-points {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: rgba(255,255,255,0.92);
+            font-size: 14px;
+        }
+
+        .security-item i {
+            width: 35px;
+            height: 35px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.14);
+        }
+
+        /* RIGHT SIDE */
+
+        .login-section {
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 11, 24, 0.55);
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 390px;
+        }
+
+        .login-heading {
+            margin-bottom: 35px;
+        }
+
+        .login-heading h2 {
+            font-size: 32px;
+            margin-bottom: 9px;
+        }
+
+        .login-heading p {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .flash-message {
+            padding: 13px 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #fca5a5;
+        }
+
+        .form-group {
+            margin-bottom: 21px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper > i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b5cf6;
+            pointer-events: none;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 54px;
+            padding: 0 48px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #6b7280;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #8b5cf6;
+            background: rgba(139,92,246,0.08);
+            box-shadow: 0 0 0 4px rgba(139,92,246,0.10);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .password-toggle:hover {
+            color: #c4b5fd;
+        }
+
+        .login-button {
+            width: 100%;
+            height: 55px;
+            border: none;
+            border-radius: 14px;
+            margin-top: 8px;
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+            box-shadow: 0 12px 25px rgba(99,102,241,0.25);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(99,102,241,0.35);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .register-text a:hover {
+            color: #c4b5fd;
+        }
+
+        .privacy-note {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+            color: #6b7280;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 850px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+            }
+
+            .welcome-section {
+                padding: 40px;
+            }
+
+            .welcome-section h1 {
+                font-size: 36px;
+            }
+
+            .security-points {
+                display: none;
+            }
+
+            .brand {
+                margin-bottom: 30px;
+            }
+
+            .login-section {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .login-wrapper {
+                border-radius: 22px;
+            }
+
+            .welcome-section {
+                padding: 30px 25px;
+            }
+
+            .login-section {
+                padding: 30px 25px;
+            }
+
+            .welcome-section h1 {
+                font-size: 31px;
+            }
+
+            .welcome-section > p {
+                font-size: 14px;
+            }
+
+            .login-heading h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-circle circle-one"></div>
+    <div class="background-circle circle-two"></div>
+
+    <div class="login-wrapper">
+
+        <!-- LEFT -->
+        <section class="welcome-section">
+
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </div>
+
+                <div class="brand-name">
+                    SafeHer <span>AI</span>
+                </div>
+            </div>
+
+            <h1>
+                Your safety.<br>
+                Your control.
+            </h1>
+
+            <p>
+                A personal safety platform designed to help you stay
+                connected, prepared and protected when you need it most.
+            </p>
+
+            <div class="security-points">
+
+                <div class="security-item">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Quick emergency assistance</span>
+                </div>
+
+                <div class="security-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Real-time location support</span>
+                </div>
+
+                <div class="security-item">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Trusted contact protection</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+        <section class="login-section">
+
+            <div class="login-box">
+
+                <div class="login-heading">
+                    <h2>Welcome back 👋</h2>
+                    <p>Sign in to access your SafeHer dashboard.</p>
+                </div>
+
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+
+                <form method="POST" action="{{ url_for('login') }}">
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword()"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-solid fa-eye" id="passwordIcon"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="login-button">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        &nbsp; Sign In
+                    </button>
+
+                </form>
+
+
+                <div class="register-text">
+                    Don't have an account?
+                    <a href="{{ url_for('register') }}">Create one</a>
+                </div>
+
+
+                <div class="privacy-note">
+                    <i class="fa-solid fa-lock"></i>
+                    Your account information is protected by SafeHer AI.
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script>
+        function togglePassword() {
+
+            const password = document.getElementById("password");
+            const icon = document.getElementById("passwordIcon");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+
+            } else {
+
+                password.type = "password";
+
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+
+            }
+        }
+    </script>
+
+</body>
+</html>

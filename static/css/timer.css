@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f3ff, #eff6ff);
+    color: #1e293b;
+    padding: 20px;
+}
+
+.timer-container {
+    width: 100%;
+    max-width: 650px;
+    margin: 30px auto;
+}
+
+.timer-card {
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.timer-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    background: #ede9fe;
+    color: #7c3aed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+h1 {
+    color: #312e81;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.time-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.time-btn {
+    padding: 13px 5px;
+    border: 1px solid #ddd6fe;
+    background: #faf5ff;
+    color: #6d28d9;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.time-btn.active {
+    background: #7c3aed;
+    color: white;
+}
+
+.timer-display {
+    font-size: 64px;
+    font-weight: bold;
+    color: #7c3aed;
+    margin: 25px 0;
+}
+
+.status {
+    padding: 14px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+.start-btn,
+.check-btn,
+.cancel-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.start-btn {
+    background: #7c3aed;
+    color: white;
+}
+
+.check-btn {
+    background: #16a34a;
+    color: white;
+}
+
+.cancel-btn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.start-btn:hover {
+    background: #6d28d9;
+}
+
+.check-btn:hover {
+    background: #15803d;
+}
+
+.cancel-btn:hover {
+    background: #cbd5e1;
+}
+
+@media (max-width: 600px) {
+    .timer-card {
+        padding: 22px 16px;
+    }
+
+    .time-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .timer-display {
+        font-size: 50px;
+    }
+}

@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #ecfdf5, #eff6ff);
+}
+
+.success-card {
+    width: 100%;
+    max-width: 550px;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+}
+
+.success-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+}
+
+.success-card h1 {
+    color: #166534;
+    margin-bottom: 12px;
+}
+
+.success-card p {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.location-box {
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    color: #475569;
+}
+
+.dashboard-btn {
+    display: inline-block;
+    padding: 13px 22px;
+    background: #16a34a;
+    color: white;
+    border-radius: 11px;
+    font-weight: bold;
+}
+
+.dashboard-btn:hover {
+    background: #15803d;
+}
+
+@media (max-width: 500px) {
+    .success-card {
+        padding: 30px 20px;
+    }
+}

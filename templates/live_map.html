@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Live Location | SafeHer AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --pink: #ec4899;
+            --green: #10b981;
+            --text: #181827;
+            --muted: #77778a;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(124,58,237,0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(236,72,153,0.10),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    #faf9ff,
+                    #f7f5ff 50%,
+                    #fff8fc
+                );
+
+            overflow-x: hidden;
+        }
+
+        /* ================= HEADER ================= */
+
+        .topbar {
+            height: 76px;
+
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(255,255,255,0.78);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(124,58,237,0.08);
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #ec4899
+                );
+
+            color: white;
+
+            box-shadow:
+                0 8px 22px rgba(124,58,237,0.25);
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand-text span {
+            color: var(--primary);
+        }
+
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            border-radius: 12px;
+
+            color: #555568;
+
+            text-decoration: none;
+
+            background: white;
+
+            border: 1px solid rgba(124,58,237,0.10);
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.25s;
+        }
+
+        .logout:hover {
+            color: var(--primary);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(124,58,237,0.10);
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+
+            margin: 38px auto 70px;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--primary);
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 25px;
+
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            transform: translateX(-4px);
+        }
+
+        /* ================= PAGE HEADER ================= */
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(28px, 5vw, 40px);
+
+            letter-spacing: -1.3px;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+
+            font-size: 15px;
+
+            max-width: 650px;
+
+            line-height: 1.6;
+        }
+
+        /* ================= MAIN CARD ================= */
+
+        .location-card {
+            background: rgba(255,255,255,0.84);
+
+            backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(124,58,237,0.10);
+
+            border-radius: 26px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 15px 45px rgba(20,10,50,0.07);
+        }
+
+        /* ================= STATUS ================= */
+
+        .status-bar {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 15px 17px;
+
+            margin-bottom: 20px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(16,185,129,0.07);
+
+            border:
+                1px solid rgba(16,185,129,0.13);
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 0 5px rgba(16,185,129,0.10);
+
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                box-shadow:
+                    0 0 0 0 rgba(16,185,129,0.30);
+            }
+
+            70% {
+                box-shadow:
+                    0 0 0 8px rgba(16,185,129,0);
+            }
+
+            100% {
+                box-shadow:
+                    0 0 0 0 rgba(16,185,129,0);
+            }
+
+        }
+
+        #status {
+            color: #047857;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .gps-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        /* ================= MAP ================= */
+
+        .map-wrapper {
+            position: relative;
+
+            width: 100%;
+            height: 500px;
+
+            border-radius: 21px;
+
+            overflow: hidden;
+
+            background: #e5e7eb;
+
+            border: 1px solid #e8e8ef;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.07);
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-overlay {
+            position: absolute;
+
+            top: 15px;
+            left: 15px;
+
+            z-index: 5;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 9px 13px;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.92);
+
+            backdrop-filter: blur(10px);
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,0.10);
+
+            font-size: 12px;
+            font-weight: 700;
+
+            color: #444456;
+        }
+
+        .map-overlay i {
+            color: var(--primary);
+        }
+
+        /* ================= INFO ================= */
+
+        .location-info {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+        .info-box {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 17px;
+
+            border-radius: 17px;
+
+            background:
+                rgba(248,250,252,0.90);
+
+            border: 1px solid #ececf3;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                rgba(124,58,237,0.09);
+
+            color: var(--primary);
+        }
+
+        .info-content small {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            margin-bottom: 5px;
+        }
+
+        .info-content strong {
+            display: block;
+
+            font-size: 14px;
+
+            color: #1e293b;
+
+            word-break: break-word;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 13px;
+
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+
+            min-height: 48px;
+
+            padding: 13px 18px;
+
+            border-radius: 13px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 22px rgba(0,0,0,0.12);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn.green {
+            background:
+                linear-gradient(
+                    135deg,
+                    #10b981,
+                    #059669
+                );
+        }
+
+        .btn.pink {
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #ec4899
+                );
+        }
+
+        /* ================= SECURITY NOTE ================= */
+
+        .security-note {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-top: 18px;
+
+            padding: 14px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(124,58,237,0.06);
+
+            border:
+                1px solid rgba(124,58,237,0.08);
+
+            color: #5b21b6;
+
+            font-size: 12px;
+
+            line-height: 1.55;
+        }
+
+        .security-note i {
+            margin-top: 2px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .topbar {
+                padding: 0 5%;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 28px;
+            }
+
+            .location-card {
+                padding: 18px;
+                border-radius: 21px;
+            }
+
+            .map-wrapper {
+                height: 390px;
+            }
+
+            .location-info {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 430px) {
+
+            .brand-text {
+                font-size: 18px;
+            }
+
+            .logout {
+                padding: 9px 12px;
+            }
+
+            .logout span {
+                display: none;
+            }
+
+            .map-wrapper {
+                height: 350px;
+            }
+
+            .status-bar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+        </div>
+
+        <div class="brand-text">
+            SafeHer <span>AI</span>
+        </div>
+
+    </div>
+
+    <a
+        href="{{ url_for('logout') }}"
+        class="logout"
+    >
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        <span>Logout</span>
+
+    </a>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="back"
+    >
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to Dashboard
+    </a>
+
+
+    <section class="page-header">
+
+        <div class="eyebrow">
+            GPS Safety System
+        </div>
+
+        <h1>
+            Live Location
+        </h1>
+
+        <p>
+            View your current GPS position and keep your
+            latest location available to SafeHer AI.
+        </p>
+
+    </section>
+
+
+    <section class="location-card">
+
+
+        <!-- STATUS -->
+
+        <div class="status-bar">
+
+            <div class="status-left">
+
+                <div class="status-dot"></div>
+
+                <div id="status">
+                    Getting your current location...
+                </div>
+
+            </div>
+
+            <div class="gps-label">
+
+                <i class="fa-solid fa-satellite-dish"></i>
+
+                GPS Location
+
+            </div>
+
+        </div>
+
+
+        <!-- MAP -->
+
+        <div class="map-wrapper">
+
+            <div class="map-overlay">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Current Position
+
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+
+        <!-- LOCATION INFO -->
+
+        <div class="location-info">
+
+            <div class="info-box">
+
+                <div class="info-icon">
+
+                    <i class="fa-solid fa-arrows-up-down"></i>
+
+                </div>
+
+                <div class="info-content">
+
+                    <small>
+                        LATITUDE
+                    </small>
+
+                    <strong id="latitude">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <div class="info-icon">
+
+                    <i class="fa-solid fa-arrows-left-right"></i>
+
+                </div>
+
+                <div class="info-content">
+
+                    <small>
+                        LONGITUDE
+                    </small>
+
+                    <strong id="longitude">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <button
+                class="btn green"
+                onclick="getLocation()"
+            >
+
+                <i class="fa-solid fa-location-crosshairs"></i>
+
+                Update Location
+
+            </button>
+
+
+            <button
+                class="btn pink"
+                onclick="openGoogleMaps()"
+            >
+
+                <i class="fa-solid fa-map-location-dot"></i>
+
+                Open in Google Maps
+
+            </button>
+
+        </div>
+
+
+        <!-- NOTE -->
+
+        <div class="security-note">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <span>
+                Your location is used to support emergency
+                assistance and alert trusted contacts when
+                an SOS is triggered.
+            </span>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+let currentLatitude = null;
+let currentLongitude = null;
+
+
+/* ================= GET LOCATION ================= */
+
+function getLocation() {
+
+    const status =
+        document.getElementById("status");
+
+
+    if (!navigator.geolocation) {
+
+        status.innerText =
+            "Your browser does not support GPS location.";
+
+        return;
+    }
+
+
+    status.innerText =
+        "Getting your current location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            currentLatitude =
+                position.coords.latitude;
+
+            currentLongitude =
+                position.coords.longitude;
+
+
+            document.getElementById("latitude")
+                .innerText =
+                currentLatitude.toFixed(6);
+
+
+            document.getElementById("longitude")
+                .innerText =
+                currentLongitude.toFixed(6);
+
+
+            showMap(
+                currentLatitude,
+                currentLongitude
+            );
+
+
+            saveLocation(
+                currentLatitude,
+                currentLongitude
+            );
+
+
+            status.innerText =
+                "Location updated successfully.";
+
+        },
+
+
+        function(error) {
+
+            console.error(
+                "Location error:",
+                error
+            );
+
+
+            status.innerText =
+                "Unable to get location. Please allow GPS permission.";
+
+        },
+
+
+        {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 60000
+        }
+
+    );
+
+}
+
+
+/* ================= SHOW MAP ================= */
+
+function showMap(latitude, longitude) {
+
+    const mapUrl =
+        "https://www.google.com/maps?q=" +
+        latitude +
+        "," +
+        longitude +
+        "&output=embed";
+
+
+    document.getElementById("map").innerHTML =
+
+        `<iframe
+            src="${mapUrl}"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>`;
+
+}
+
+
+/* ================= SAVE LOCATION ================= */
+
+async function saveLocation(
+    latitude,
+    longitude
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                "/update_location",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        latitude:
+                            latitude,
+
+                        longitude:
+                            longitude
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Location saved:",
+            data
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not save location:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ================= GOOGLE MAPS ================= */
+
+function openGoogleMaps() {
+
+    if (
+        currentLatitude === null ||
+        currentLongitude === null
+    ) {
+
+        alert(
+            "Please update your location first."
+        );
+
+        return;
+    }
+
+
+    const url =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        currentLatitude +
+        "," +
+        currentLongitude;
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+/* ================= AUTO LOCATION ================= */
+
+window.addEventListener(
+    "load",
+    getLocation
+);
+
+</script>
+
+</body>
+</html>

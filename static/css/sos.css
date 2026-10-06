@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff1f2, #fef2f2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.sos-container {
+    width: 100%;
+    max-width: 550px;
+}
+
+.sos-card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.12);
+}
+
+.sos-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+h1 {
+    color: #991b1b;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.countdown {
+    font-size: 60px;
+    font-weight: bold;
+    color: #dc2626;
+    margin: 20px 0;
+}
+
+.status {
+    padding: 13px;
+    border-radius: 12px;
+    background: #fef2f2;
+    color: #991b1b;
+    margin-bottom: 20px;
+}
+
+.location {
+    padding: 15px;
+    border-radius: 12px;
+    background: #f8fafc;
+    color: #475569;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.cancel-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #e2e8f0;
+    color: #334155;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #cbd5e1;
+}
+
+@media (max-width: 500px) {
+    .sos-card {
+        padding: 28px 18px;
+    }
+
+    .countdown {
+        font-size: 50px;
+    }
+}

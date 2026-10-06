@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nearby Help | SafeHer AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            color: #181827;
+
+            background:
+                radial-gradient(
+                    circle at 5% 5%,
+                    rgba(37, 99, 235, 0.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 95% 15%,
+                    rgba(124, 58, 237, 0.12),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f8faff,
+                    #f7f5ff,
+                    #fff8fc
+                );
+        }
+
+        /* ================= TOPBAR ================= */
+
+        .topbar {
+            height: 76px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background: rgba(255, 255, 255, 0.86);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(124, 58, 237, 0.10);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 8px 22px rgba(37, 99, 235, 0.22);
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand-name span {
+            color: #7c3aed;
+        }
+
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            border-radius: 12px;
+
+            background: white;
+            color: #555568;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            border: 1px solid rgba(124, 58, 237, 0.10);
+
+            transition: 0.25s;
+        }
+
+        .logout:hover {
+            color: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+
+            margin: 30px auto 70px;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 24px;
+
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            transform: translateX(-4px);
+        }
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: #2563eb;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(28px, 5vw, 40px);
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 9px;
+        }
+
+        .page-header p {
+            color: #74748a;
+
+            max-width: 620px;
+
+            margin: auto;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ================= MAIN CARD ================= */
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.90);
+
+            backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(124, 58, 237, 0.10);
+
+            border-radius: 28px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 20px 60px rgba(20, 30, 70, 0.08);
+        }
+
+        /* ================= LOCATION HERO ================= */
+
+        .location-hero {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            padding: 22px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(37, 99, 235, 0.08),
+                    rgba(124, 58, 237, 0.06)
+                );
+
+            border: 1px solid rgba(37, 99, 235, 0.10);
+
+            margin-bottom: 25px;
+        }
+
+        .location-icon {
+            width: 62px;
+            height: 62px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 25px;
+
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.20);
+        }
+
+        .location-hero h2 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .location-hero p {
+            color: #74748a;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ================= HELP GRID ================= */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            margin-bottom: 14px;
+
+            color: #334155;
+        }
+
+        .section-title i {
+            color: #7c3aed;
+        }
+
+        .help-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 14px;
+        }
+
+        .help-card {
+            padding: 20px;
+
+            border-radius: 20px;
+
+            background: #ffffff;
+
+            border:
+                1px solid #ececf4;
+
+            transition: 0.25s;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .help-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 80px;
+            height: 80px;
+
+            right: -30px;
+            bottom: -35px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(124, 58, 237, 0.05);
+        }
+
+        .help-card:hover {
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(124, 58, 237, 0.20);
+
+            box-shadow:
+                0 12px 28px rgba(30, 20, 70, 0.07);
+        }
+
+        .help-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            font-size: 19px;
+
+            margin-bottom: 13px;
+        }
+
+        .help-card:nth-child(2) .help-icon {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .help-card:nth-child(3) .help-icon {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .help-card:nth-child(4) .help-icon {
+            background: #faf5ff;
+            color: #7c3aed;
+        }
+
+        .help-card h3 {
+            font-size: 15px;
+
+            color: #1e293b;
+
+            margin-bottom: 7px;
+        }
+
+        .help-card p {
+            color: #74748a;
+
+            font-size: 12px;
+
+            line-height: 1.55;
+        }
+
+        /* ================= MAP BUTTON ================= */
+
+        .map-btn {
+            display: flex;
+
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            width: 100%;
+
+            margin-top: 23px;
+
+            padding: 15px 18px;
+
+            border-radius: 15px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            box-shadow:
+                0 10px 24px rgba(37, 99, 235, 0.20);
+
+            transition: 0.25s;
+        }
+
+        .map-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 14px 30px rgba(37, 99, 235, 0.25);
+        }
+
+        .map-btn:disabled {
+            cursor: wait;
+        }
+
+        /* ================= NOTE ================= */
+
+        .note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            margin-top: 18px;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            background:
+                #fff7ed;
+
+            border:
+                1px solid #fed7aa;
+
+            color:
+                #9a3412;
+
+            font-size: 11px;
+
+            line-height: 1.55;
+        }
+
+        .note i {
+            margin-top: 2px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .security {
+            margin-top: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            color: #8b8b9b;
+
+            font-size: 10px;
+
+            text-align: center;
+        }
+
+        .security i {
+            color: #2563eb;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 650px) {
+
+            .topbar {
+                padding: 0 5%;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 24px;
+            }
+
+            .main-card {
+                padding: 19px;
+                border-radius: 22px;
+            }
+
+            .location-hero {
+                padding: 18px;
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 430px) {
+
+            .brand-name {
+                font-size: 18px;
+            }
+
+            .logout {
+                padding: 9px 12px;
+            }
+
+            .logout span {
+                display: none;
+            }
+
+            .location-icon {
+                width: 54px;
+                height: 54px;
+                font-size: 21px;
+            }
+
+            .location-hero h2 {
+                font-size: 17px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= TOPBAR ================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+        </div>
+
+        <div class="brand-name">
+            SafeHer <span>AI</span>
+        </div>
+
+    </div>
+
+
+    <a
+        href="{{ url_for('logout') }}"
+        class="logout"
+    >
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        <span>Logout</span>
+
+    </a>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="back"
+    >
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to Dashboard
+
+    </a>
+
+
+    <section class="page-header">
+
+        <div class="eyebrow">
+            Local Safety Support
+        </div>
+
+        <h1>
+            Nearby Help
+        </h1>
+
+        <p>
+            Quickly find hospitals, police stations,
+            safe public places and other useful locations
+            around you.
+        </p>
+
+    </section>
+
+
+    <!-- ================= MAIN CARD ================= -->
+
+    <section class="main-card">
+
+
+        <!-- LOCATION HERO -->
+
+        <div class="location-hero">
+
+            <div class="location-icon">
+
+                <i class="fa-solid fa-location-crosshairs"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Find Help Around You
+                </h2>
+
+                <p>
+                    SafeHer uses your location with your
+                    map provider to help you find nearby
+                    assistance.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-compass"></i>
+
+            Available Help Categories
+
+        </div>
+
+
+        <!-- HELP GRID -->
+
+        <div class="help-grid">
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+
+                    <i class="fa-solid fa-hospital"></i>
+
+                </div>
+
+                <h3>
+                    Hospitals
+                </h3>
+
+                <p>
+                    Find nearby hospitals and
+                    medical facilities.
+                </p>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+
+                    <i class="fa-solid fa-building-shield"></i>
+
+                </div>
+
+                <h3>
+                    Police Stations
+                </h3>
+
+                <p>
+                    Locate nearby police stations
+                    using your map provider.
+                </p>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+
+                    <i class="fa-solid fa-house"></i>
+
+                </div>
+
+                <h3>
+                    Safe Places
+                </h3>
+
+                <p>
+                    Look for public places where
+                    you can move to a safer location.
+                </p>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-icon">
+
+                    <i class="fa-solid fa-map-location-dot"></i>
+
+                </div>
+
+                <h3>
+                    Maps
+                </h3>
+
+                <p>
+                    Open maps and search for useful
+                    places near your location.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- MAP BUTTON -->
+
+        <button
+            type="button"
+            class="map-btn"
+            id="nearbyHelpBtn"
+            onclick="openNearbyHelp()"
+        >
+
+            <i class="fa-solid fa-map-location-dot"></i>
+
+            Open Nearby Help in Maps
+
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+        </button>
+
+
+        <!-- NOTE -->
+
+        <div class="note">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <span>
+                Location results depend on your map provider
+                and the location permission given to your browser.
+                Always verify the place details before relying on them.
+            </span>
+
+        </div>
+
+
+        <div class="security">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            Location access is used only when you request nearby help.
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+function openNearbyHelp() {
+
+    const button = document.getElementById("nearbyHelpBtn");
+
+
+    /* Check whether browser supports GPS */
+
+    if (!navigator.geolocation) {
+
+        alert(
+            "Location is not supported by this browser."
+        );
+
+        return;
+    }
+
+
+    /* Show loading state */
+
+    button.disabled = true;
+
+    button.style.opacity = "0.7";
+
+    button.innerHTML =
+        '<i class="fa-solid fa-location-crosshairs"></i>' +
+        ' Getting your location...';
+
+
+    /* Get fresh GPS location */
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            /*
+             * IMPORTANT:
+             * Google Maps will now open using
+             * the exact coordinates returned
+             * by the browser/device.
+             */
+
+            const mapsUrl =
+                "https://www.google.com/maps/search/hospital+police+station/@"
+                + latitude
+                + ","
+                + longitude
+                + ",15z";
+
+
+            /* Open Google Maps */
+
+            window.open(
+                mapsUrl,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+
+            /* Restore button */
+
+            button.disabled = false;
+
+            button.style.opacity = "1";
+
+            button.innerHTML =
+                '<i class="fa-solid fa-map-location-dot"></i>' +
+                ' Open Nearby Help in Maps ' +
+                '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+
+        },
+
+
+        function(error) {
+
+            /* Restore button */
+
+            button.disabled = false;
+
+            button.style.opacity = "1";
+
+            button.innerHTML =
+                '<i class="fa-solid fa-map-location-dot"></i>' +
+                ' Open Nearby Help in Maps ' +
+                '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+
+
+            /* Location permission denied */
+
+            if (
+                error.code ===
+                error.PERMISSION_DENIED
+            ) {
+
+                alert(
+                    "Location permission was denied. " +
+                    "Please allow location access for SafeHer " +
+                    "in your browser and try again."
+                );
+
+            }
+
+
+            /* GPS/location unavailable */
+
+            else if (
+                error.code ===
+                error.POSITION_UNAVAILABLE
+            ) {
+
+                alert(
+                    "Your location is currently unavailable. " +
+                    "Please turn on device location/GPS and try again."
+                );
+
+            }
+
+
+            /* GPS timeout */
+
+            else if (
+                error.code ===
+                error.TIMEOUT
+            ) {
+
+                alert(
+                    "Getting your location took too long. " +
+                    "Please try again."
+                );
+
+            }
+
+
+            /* Other error */
+
+            else {
+
+                alert(
+                    "Unable to get your location. " +
+                    "Please try again."
+                );
+
+            }
+
+        },
+
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
+
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

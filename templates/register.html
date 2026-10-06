@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | SafeHer AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        :root {
+            --purple: #7c3aed;
+            --purple-dark: #5b21b6;
+            --pink: #ec4899;
+            --text: #181522;
+            --muted: #737380;
+            --border: rgba(124, 58, 237, 0.13);
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 15px;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(236, 72, 153, 0.15),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(124, 58, 237, 0.16),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    135deg,
+                    #faf7ff,
+                    #fff8fc,
+                    #f5f3ff
+                );
+        }
+
+
+        /* ================= MAIN CARD ================= */
+
+        .register-wrapper {
+            width: 100%;
+            max-width: 1050px;
+
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+
+            background: rgba(255,255,255,0.82);
+
+            backdrop-filter: blur(20px);
+
+            border: 1px solid var(--border);
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 70px rgba(91,33,182,0.12);
+        }
+
+
+        /* ================= LEFT PANEL ================= */
+
+        .welcome-panel {
+            position: relative;
+
+            padding: 55px 42px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #6d28d9,
+                    #7c3aed 45%,
+                    #ec4899
+                );
+
+            overflow: hidden;
+        }
+
+
+        .welcome-panel::before {
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.09);
+
+            top: -90px;
+            right: -90px;
+        }
+
+
+        .welcome-panel::after {
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            bottom: -70px;
+            left: -70px;
+        }
+
+
+        .brand {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 60px;
+        }
+
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255,255,255,0.18);
+
+            font-size: 21px;
+        }
+
+
+        .brand strong {
+            display: block;
+
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+
+        .brand span {
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 11px;
+
+            opacity: 0.75;
+        }
+
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+
+
+        .welcome-content .eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 12px;
+
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.14);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+
+        .welcome-content h2 {
+            font-size: 38px;
+
+            line-height: 1.12;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .welcome-content > p {
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            opacity: 0.82;
+
+            max-width: 360px;
+        }
+
+
+        /* ================= BENEFITS ================= */
+
+        .benefits {
+            position: relative;
+            z-index: 2;
+
+            margin-top: 35px;
+
+            display: grid;
+
+            gap: 13px;
+        }
+
+
+        .benefit {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .benefit-icon {
+            width: 35px;
+            height: 35px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: rgba(255,255,255,0.14);
+
+            font-size: 14px;
+        }
+
+
+        /* ================= FORM PANEL ================= */
+
+        .form-panel {
+            padding: 45px 48px;
+
+            background: rgba(255,255,255,0.75);
+        }
+
+
+        .form-heading {
+            margin-bottom: 25px;
+        }
+
+
+        .form-heading h1 {
+            font-size: 29px;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .form-heading p {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================= FLASH ================= */
+
+        .message {
+            padding: 12px 14px;
+
+            margin-bottom: 18px;
+
+            border-radius: 12px;
+
+            background: #fff0f5;
+
+            border: 1px solid #fbcfe8;
+
+            color: #be185d;
+
+            font-size: 12px;
+        }
+
+
+        /* ================= FORM ================= */
+
+        form {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 16px;
+        }
+
+
+        .field {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+
+        label {
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-bottom: 7px;
+
+            color: #35333e;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        label i {
+            color: var(--purple);
+
+            font-size: 11px;
+        }
+
+
+        input {
+            width: 100%;
+
+            padding: 12px 13px;
+
+            border: 1px solid #e5e1ec;
+
+            border-radius: 11px;
+
+            background: #fbfaff;
+
+            color: var(--text);
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            outline: none;
+
+            transition: 0.25s ease;
+        }
+
+
+        input::placeholder {
+            color: #aaa7b3;
+        }
+
+
+        input:focus {
+            border-color: var(--purple);
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(124,58,237,0.08);
+        }
+
+
+        .field-info {
+            margin-top: 6px;
+
+            color: #9995a3;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+        }
+
+
+        /* ================= PASSWORD ================= */
+
+        .password-wrap {
+            position: relative;
+        }
+
+
+        .password-wrap input {
+            padding-right: 42px;
+        }
+
+
+        .toggle-password {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #999;
+
+            cursor: pointer;
+
+            padding: 4px;
+        }
+
+
+        .toggle-password:hover {
+            color: var(--purple);
+        }
+
+
+        /* ================= SUBMIT ================= */
+
+        .submit-btn {
+            grid-column: 1 / -1;
+
+            width: 100%;
+
+            border: none;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--pink)
+                );
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 25px rgba(124,58,237,0.22);
+
+            transition: 0.3s ease;
+        }
+
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 32px rgba(124,58,237,0.28);
+        }
+
+
+        .submit-btn i {
+            margin-right: 7px;
+        }
+
+
+        /* ================= BOTTOM LINKS ================= */
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .login-link a {
+            color: var(--purple);
+
+            font-weight: 800;
+
+            text-decoration: none;
+        }
+
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        .home-link {
+            text-align: center;
+
+            margin-top: 13px;
+        }
+
+
+        .home-link a {
+            color: #9995a3;
+
+            font-size: 11px;
+
+            text-decoration: none;
+        }
+
+
+        .home-link a:hover {
+            color: var(--purple);
+        }
+
+
+        /* ================= SECURITY NOTE ================= */
+
+        .security-note {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 22px;
+
+            padding-top: 16px;
+
+            border-top: 1px solid #eeeaf3;
+
+            color: #9995a3;
+
+            font-size: 10px;
+        }
+
+
+        .security-note i {
+            color: #16a34a;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .register-wrapper {
+                grid-template-columns: 1fr;
+
+                max-width: 560px;
+            }
+
+
+            .welcome-panel {
+                padding: 35px 30px;
+            }
+
+
+            .brand {
+                margin-bottom: 35px;
+            }
+
+
+            .welcome-content h2 {
+                font-size: 31px;
+            }
+
+
+            .benefits {
+                grid-template-columns: 1fr 1fr;
+            }
+
+
+            .form-panel {
+                padding: 35px 30px;
+            }
+
+        }
+
+
+        @media (max-width: 560px) {
+
+            body {
+                padding: 12px;
+            }
+
+
+            .register-wrapper {
+                border-radius: 20px;
+            }
+
+
+            .welcome-panel {
+                padding: 30px 22px;
+            }
+
+
+            .welcome-content h2 {
+                font-size: 28px;
+            }
+
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-panel {
+                padding: 30px 20px;
+            }
+
+
+            form {
+                grid-template-columns: 1fr;
+            }
+
+
+            .field.full {
+                grid-column: auto;
+            }
+
+
+            .submit-btn {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="register-wrapper">
+
+
+    <!-- ================= LEFT ================= -->
+
+    <section class="welcome-panel">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+
+            <div>
+                <strong>SafeHer AI</strong>
+                <span>Smart Safety Companion</span>
+            </div>
+
+        </div>
+
+
+        <div class="welcome-content">
+
+            <div class="eyebrow">
+                <i class="fa-solid fa-sparkles"></i>
+                Start your safety journey
+            </div>
+
+
+            <h2>
+                Your safety.
+                Your network.
+                Your control.
+            </h2>
+
+
+            <p>
+                Create your SafeHer account and connect
+                trusted people who can receive emergency
+                alerts when you need assistance.
+            </p>
+
+
+            <div class="benefits">
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+
+                    Quick SOS alerts
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    GPS location support
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+
+                    Trusted contact network
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+
+                    Safety timer protection
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= FORM ================= -->
+
+    <section class="form-panel">
+
+
+        <div class="form-heading">
+
+            <h1>
+                Create Account
+            </h1>
+
+            <p>
+                Enter your details to set up your SafeHer AI account.
+            </p>
+
+        </div>
+
+
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="message">
+                        <i class="fa-solid fa-circle-info"></i>
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+
+        <form method="POST">
+
+
+            <!-- NAME -->
+
+            <div class="field full">
+
+                <label for="name">
+                    <i class="fa-solid fa-user"></i>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div class="field">
+
+                <label for="phone">
+                    <i class="fa-solid fa-phone"></i>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter phone number"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="field">
+
+                <label for="email">
+                    <i class="fa-solid fa-envelope"></i>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- EMERGENCY EMAIL -->
+
+            <div class="field full">
+
+                <label for="emergency_email">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Emergency Email
+                </label>
+
+                <input
+                    type="email"
+                    id="emergency_email"
+                    name="emergency_email"
+                    placeholder="Optional backup emergency email"
+                    autocomplete="email"
+                >
+
+                <span class="field-info">
+                    Optional. You can also add multiple Trusted Contacts
+                    after registration.
+                </span>
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="field full">
+
+                <label for="password">
+                    <i class="fa-solid fa-lock"></i>
+                    Password
+                </label>
+
+                <div class="password-wrap">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a secure password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="togglePassword()"
+                        aria-label="Show password"
+                    >
+                        <i id="passwordIcon"
+                           class="fa-solid fa-eye"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Create SafeHer Account
+
+            </button>
+
+        </form>
+
+
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+        </div>
+
+
+
+        <!-- HOME -->
+
+        <div class="home-link">
+
+            <a href="{{ url_for('index') }}">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Home
+            </a>
+
+        </div>
+
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+            <i class="fa-solid fa-lock"></i>
+
+            Your account details are protected by SafeHer AI.
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const icon =
+        document.getElementById("passwordIcon");
+
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+        icon.className =
+            "fa-solid fa-eye-slash";
+
+    } else {
+
+        password.type = "password";
+
+        icon.className =
+            "fa-solid fa-eye";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>

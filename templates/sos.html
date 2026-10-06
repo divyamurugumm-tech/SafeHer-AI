@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency SOS | SafeHer AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/sos.css') }}">
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- ================= TOPBAR ================= -->
+
+    <header class="topbar">
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Dashboard</span>
+        </a>
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+
+            <div>
+                <strong>SafeHer <span>AI</span></strong>
+                <small>Emergency Center</small>
+            </div>
+
+        </div>
+
+
+        <div class="protection-status">
+
+            <span class="status-dot"></span>
+
+            <span>Protection Active</span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="page-heading">
+
+            <div class="eyebrow">
+                <i class="fa-solid fa-shield-halved"></i>
+                Emergency Assistance
+            </div>
+
+            <h1>
+                Emergency SOS
+            </h1>
+
+            <p>
+                If you need immediate assistance, activate SOS.
+                SafeHer will capture your available location
+                and alert your trusted contacts.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= SOS CARD ================= -->
+
+        <section class="sos-card">
+
+
+            <!-- ALERT ICON -->
+
+            <div class="alert-icon">
+
+                <div class="alert-ring"></div>
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+            </div>
+
+
+            <div class="sos-title">
+
+                <h2>
+                    Emergency Alert
+                </h2>
+
+                <p>
+                    Press and hold your attention here.
+                    A short countdown helps prevent accidental alerts.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= SOS BUTTON ================= -->
+
+            <button
+                id="sosButton"
+                class="sos-button"
+                onclick="startSOS()"
+            >
+
+                <span class="button-pulse"></span>
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+                <strong>SOS</strong>
+
+                <small>
+                    Activate Emergency Alert
+                </small>
+
+            </button>
+
+
+
+            <!-- ================= COUNTDOWN ================= -->
+
+            <div
+                id="countdownBox"
+                class="countdown-box hidden"
+            >
+
+                <div class="countdown-top">
+
+                    <span>
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Alert preparing
+                    </span>
+
+                    <span class="countdown-label">
+                        Emergency
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="countdown"
+                    class="countdown"
+                >
+                    5
+                </div>
+
+
+                <p>
+                    Your emergency alert is being prepared.
+                    Cancel if you activated SOS accidentally.
+                </p>
+
+
+                <button
+                    class="cancel-btn"
+                    onclick="cancelSOS()"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Cancel Alert
+
+                </button>
+
+            </div>
+
+
+
+            <!-- ================= LOCATION STATUS ================= -->
+
+            <div
+                id="locationStatus"
+                class="location-status"
+            >
+
+                <div class="location-icon">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Location Status
+                    </strong>
+
+                    <span>
+                        Your location will be captured
+                        when SOS is activated.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= PROTECTION GRID ================= -->
+
+        <section class="protection-grid">
+
+
+            <div class="info-card">
+
+                <div class="info-icon blue">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                </div>
+
+                <div>
+
+                    <h3>
+                        GPS Location
+                    </h3>
+
+                    <p>
+                        Available GPS coordinates can be
+                        included in the emergency alert.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-card">
+
+                <div class="info-icon purple">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+
+                <div>
+
+                    <h3>
+                        Trusted Contacts
+                    </h3>
+
+                    <p>
+                        Your saved emergency contacts
+                        receive the alert.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-card">
+
+                <div class="info-icon pink">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <div>
+
+                    <h3>
+                        Emergency Email
+                    </h3>
+
+                    <p>
+                        The alert includes the emergency
+                        reason and available location.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= SAFETY NOTE ================= -->
+
+        <section class="safety-note">
+
+            <div class="note-icon">
+
+                <i class="fa-solid fa-shield-heart"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Stay prepared
+                </strong>
+
+                <p>
+                    Keep your trusted contacts updated and
+                    allow location access so SafeHer can provide
+                    the best available emergency information.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= SECURITY ================= -->
+
+        <div class="security">
+
+            <i class="fa-solid fa-lock"></i>
+
+            SafeHer AI uses your location only when
+            safety features require it.
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/sos.js') }}"></script>
+
+</body>
+
+</html>

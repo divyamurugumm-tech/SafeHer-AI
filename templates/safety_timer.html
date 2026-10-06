@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Safety Command Center | SafeHer AI</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #7c3aed;
+            --pink: #ec4899;
+            --green: #16a34a;
+            --red: #dc2626;
+            --dark: #171126;
+            --muted: #6b7280;
+            --glass: rgba(255,255,255,0.82);
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Inter, Arial, sans-serif;
+            color: var(--dark);
+            background:
+                radial-gradient(circle at 10% 10%, rgba(236,72,153,.15), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(124,58,237,.18), transparent 30%),
+                linear-gradient(135deg, #faf7ff, #fff7fb);
+        }
+
+        /* HEADER */
+
+        .topbar {
+            height: 74px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 6%;
+            color: white;
+            background: linear-gradient(135deg, #6d28d9, #db2777);
+            box-shadow: 0 8px 30px rgba(124,58,237,.22);
+        }
+
+        .back {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,.16);
+            transition: .25s;
+        }
+
+        .back:hover {
+            transform: translateX(-3px);
+            background: rgba(255,255,255,.25);
+        }
+
+        .top-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-title strong {
+            font-size: 19px;
+        }
+
+        .top-title span {
+            font-size: 12px;
+            opacity: .8;
+        }
+
+        /* MAIN */
+
+        .page {
+            width: min(1050px, 92%);
+            margin: 35px auto 60px;
+        }
+
+        .hero {
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--purple);
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        /* MAIN GRID */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1.35fr .65fr;
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 20px 60px rgba(40,20,80,.10);
+        }
+
+        /* TIMER CARD */
+
+        .timer-card {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-card::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            background: rgba(124,58,237,.07);
+            top: -120px;
+            right: -100px;
+        }
+
+        .shield {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 12px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            box-shadow: 0 12px 28px rgba(124,58,237,.25);
+        }
+
+        .timer-heading {
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .timer-subtitle {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* STATUS */
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px 0 10px;
+            padding: 9px 15px;
+            border-radius: 50px;
+            color: #5b21b6;
+            background: #f3e8ff;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--purple);
+        }
+
+        /* CIRCULAR TIMER */
+
+        .timer-ring {
+            width: min(290px, 75vw);
+            height: min(290px, 75vw);
+            margin: 12px auto 24px;
+            border-radius: 50%;
+            padding: 12px;
+            background: conic-gradient(
+                var(--purple) 0deg,
+                var(--pink) 180deg,
+                #ede9fe 180deg,
+                #ede9fe 360deg
+            );
+            box-shadow:
+                0 18px 45px rgba(124,58,237,.15),
+                inset 0 0 20px rgba(255,255,255,.5);
+        }
+
+        .timer-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: white;
+        }
+
+        .timer-display {
+            font-size: clamp(45px, 8vw, 68px);
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--dark);
+        }
+
+        .timer-label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* TIME OPTIONS */
+
+        .selection-title {
+            text-align: left;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 9px;
+        }
+
+        .time-btn {
+            border: 1.5px solid #e9d5ff;
+            background: white;
+            color: #6d28d9;
+            padding: 13px 5px;
+            border-radius: 13px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: .25s;
+        }
+
+        .time-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--purple);
+        }
+
+        .time-btn.selected {
+            color: white;
+            border-color: transparent;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            box-shadow: 0 8px 18px rgba(124,58,237,.22);
+        }
+
+        /* BUTTONS */
+
+        .main-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 15px;
+            padding: 16px;
+            margin-top: 16px;
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0,0,0,.12);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        .cancel-btn {
+            background: #fef2f2;
+            color: var(--red);
+            border: 1px solid #fecaca;
+        }
+
+        /* ACTIVE CONTROLS */
+
+        .active-controls {
+            display: none;
+        }
+
+        .active-controls.show {
+            display: block;
+        }
+
+        .time-selection.hidden {
+            display: none;
+        }
+
+        /* RIGHT PANEL */
+
+        .side-title {
+            font-size: 18px;
+            margin-bottom: 18px;
+        }
+
+        .safety-item {
+            display: flex;
+            gap: 13px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 17px;
+            background: rgba(255,255,255,.75);
+            border: 1px solid #f1f5f9;
+        }
+
+        .safety-icon {
+            min-width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--purple);
+            background: #f3e8ff;
+        }
+
+        .safety-item strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .safety-item span {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* HOW IT WORKS */
+
+        .how-card {
+            margin-top: 22px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 18px 10px;
+            border-radius: 18px;
+            background: #fafafa;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+        }
+
+        .step strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .step span {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .page {
+                width: 94%;
+                margin-top: 24px;
+            }
+
+            .card {
+                padding: 21px 16px;
+                border-radius: 23px;
+            }
+
+            .time-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .timer-ring {
+                width: 245px;
+                height: 245px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a href="{{ url_for('dashboard') }}" class="back">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <div class="top-title">
+        <strong>Safety Command Center</strong>
+        <span>Stay connected. Stay protected.</span>
+    </div>
+
+</header>
+
+
+<main class="page">
+
+    <section class="hero">
+        <h1>Your <span>Safety Timer</span></h1>
+
+        <p>
+            Set a check-in time before travelling or going somewhere alone.
+            If you don't check in before the timer expires, SafeHer AI can
+            notify your trusted contacts with your latest location.
+        </p>
+    </section>
+
+
+    <div class="dashboard">
+
+
+        <!-- TIMER -->
+
+        <section class="card timer-card">
+
+            <div class="shield">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+
+            <h2 class="timer-heading">
+                Personal Safety Timer
+            </h2>
+
+            <p class="timer-subtitle">
+                Choose your check-in window
+            </p>
+
+
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                <span id="status">Ready to start</span>
+            </div>
+
+
+            <div class="timer-ring">
+
+                <div class="timer-inner">
+
+                    <div id="timerDisplay" class="timer-display">
+                        00:00
+                    </div>
+
+                    <div class="timer-label">
+                        Remaining
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TIME SELECTION -->
+
+            <div id="timeSelection">
+
+                <div class="selection-title">
+                    <strong>Select duration</strong>
+                </div>
+
+                <div class="time-options">
+
+                    <button class="time-btn selected"
+                            onclick="selectTime(5, this)">
+                        5m
+                    </button>
+
+                    <button class="time-btn"
+                            onclick="selectTime(10, this)">
+                        10m
+                    </button>
+
+                    <button class="time-btn"
+                            onclick="selectTime(20, this)">
+                        20m
+                    </button>
+
+                    <button class="time-btn"
+                            onclick="selectTime(30, this)">
+                        30m
+                    </button>
+
+                    <button class="time-btn"
+                            onclick="selectTime(60, this)">
+                        60m
+                    </button>
+
+                </div>
+
+
+                <button class="main-btn start-btn"
+                        onclick="startTimer()">
+
+                    <i class="fa-solid fa-play"></i>
+                    &nbsp; Start Safety Timer
+
+                </button>
+
+            </div>
+
+
+            <!-- ACTIVE -->
+
+            <div id="activeControls" class="active-controls">
+
+                <button class="main-btn check-btn"
+                        onclick="checkIn()">
+
+                    <i class="fa-solid fa-circle-check"></i>
+                    &nbsp; I'm Safe — Check In
+
+                </button>
+
+
+                <button class="main-btn cancel-btn"
+                        onclick="cancelTimer()">
+
+                    <i class="fa-solid fa-xmark"></i>
+                    &nbsp; Cancel Timer
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SAFETY INFO -->
+
+        <aside class="card">
+
+            <h2 class="side-title">
+                <i class="fa-solid fa-shield-halved"></i>
+                Safety Protection
+            </h2>
+
+
+            <div class="safety-item">
+
+                <div class="safety-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <div>
+                    <strong>Location Ready</strong>
+                    <span>
+                        Your location can be included when an emergency
+                        alert is triggered.
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="safety-item">
+
+                <div class="safety-icon">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+
+                <div>
+                    <strong>Trusted Contacts</strong>
+                    <span>
+                        Your saved trusted contacts can receive the
+                        emergency notification.
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="safety-item">
+
+                <div class="safety-icon">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+
+                <div>
+                    <strong>Expiry Alert</strong>
+                    <span>
+                        If the timer expires without a check-in,
+                        SafeHer AI triggers the alert flow.
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="safety-item">
+
+                <div class="safety-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div>
+                    <strong>Easy Check-In</strong>
+                    <span>
+                        Press "I'm Safe" anytime before expiry to
+                        complete your check-in.
+                    </span>
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="card how-card">
+
+        <h2 class="side-title">
+            How SafeHer Timer Works
+        </h2>
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">1</div>
+
+                <strong>Choose</strong>
+
+                <span>
+                    Select how long you want the safety timer.
+                </span>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">2</div>
+
+                <strong>Start</strong>
+
+                <span>
+                    Start the timer before travelling or going out.
+                </span>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">3</div>
+
+                <strong>Check In</strong>
+
+                <span>
+                    Press I'm Safe before the timer reaches zero.
+                </span>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">4</div>
+
+                <strong>Alert</strong>
+
+                <span>
+                    If it expires, the emergency alert flow starts.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+let selectedMinutes = 5;
+let countdownInterval = null;
+let expiryTime = null;
+let timerRunning = false;
+let expiryHandled = false;
+
+
+function selectTime(minutes, button) {
+
+    if (timerRunning) return;
+
+    selectedMinutes = minutes;
+
+    document.querySelectorAll(".time-btn").forEach(btn => {
+        btn.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+
+    document.getElementById("status").innerText =
+        minutes + " minute timer selected";
+}
+
+
+function updateDisplay(seconds) {
+
+    if (seconds < 0) seconds = 0;
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+
+    document.getElementById("timerDisplay").innerText =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(secs).padStart(2, "0");
+}
+
+
+function startCountdown() {
+
+    clearInterval(countdownInterval);
+
+    countdownInterval = setInterval(() => {
+
+        if (!expiryTime) return;
+
+        const remainingSeconds = Math.ceil(
+            (expiryTime.getTime() - Date.now()) / 1000
+        );
+
+        updateDisplay(remainingSeconds);
+
+        if (remainingSeconds <= 0) {
+
+            clearInterval(countdownInterval);
+
+            timerRunning = false;
+
+            if (!expiryHandled) {
+                expiryHandled = true;
+                timerExpired();
+            }
+        }
+
+    }, 1000);
+}
+
+
+async function startTimer() {
+
+    if (timerRunning) return;
+
+    try {
+
+        const formData = new FormData();
+
+        formData.append("duration", selectedMinutes);
+
+        const response = await fetch(
+            "/start_safety_timer",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            alert(
+                data.message ||
+                "Could not start timer."
+            );
+
+            return;
+        }
+
+        expiryTime = new Date(
+            data.expires_at + "Z"
+        );
+
+        timerRunning = true;
+        expiryHandled = false;
+
+        document.getElementById("status").innerText =
+            "Safety timer is active";
+
+        document.getElementById("timeSelection")
+            .classList.add("hidden");
+
+        document.getElementById("activeControls")
+            .classList.add("show");
+
+        startCountdown();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to start Safety Timer."
+        );
+    }
+}
+
+
+async function timerExpired() {
+
+    document.getElementById("status").innerText =
+        "Timer expired — processing alert";
+
+    try {
+
+        const response = await fetch(
+            "/safety_timer_expired",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            document.getElementById("status").innerText =
+                "Emergency alert sent to trusted contacts";
+
+        } else {
+
+            document.getElementById("status").innerText =
+                data.message ||
+                "Timer expired.";
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("status").innerText =
+            "Timer expired — please check the server.";
+    }
+
+    document.getElementById("activeControls")
+        .classList.remove("show");
+
+    document.getElementById("timeSelection")
+        .classList.remove("hidden");
+}
+
+
+async function checkIn() {
+
+    clearInterval(countdownInterval);
+
+    try {
+
+        const response = await fetch(
+            "/check_in_timer",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            timerRunning = false;
+            expiryTime = null;
+
+            updateDisplay(0);
+
+            document.getElementById("status").innerText =
+                "You're safe — check-in completed";
+
+            document.getElementById("activeControls")
+                .classList.remove("show");
+
+            document.getElementById("timeSelection")
+                .classList.remove("hidden");
+
+        } else {
+
+            alert(
+                data.message ||
+                "Check-in failed."
+            );
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to complete check-in."
+        );
+    }
+}
+
+
+async function cancelTimer() {
+
+    clearInterval(countdownInterval);
+
+    try {
+
+        const response = await fetch(
+            "/cancel_safety_timer",
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            timerRunning = false;
+            expiryTime = null;
+
+            updateDisplay(0);
+
+            document.getElementById("status").innerText =
+                "Timer cancelled";
+
+            document.getElementById("activeControls")
+                .classList.remove("show");
+
+            document.getElementById("timeSelection")
+                .classList.remove("hidden");
+
+        } else {
+
+            alert(
+                data.message ||
+                "Could not cancel timer."
+            );
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to cancel Safety Timer."
+        );
+    }
+}
+
+
+/* Restore active timer when page is opened again */
+
+{% if active_timer %}
+
+expiryTime = new Date(
+    "{{ active_timer.expires_at.isoformat() }}Z"
+);
+
+timerRunning = true;
+
+document.getElementById("status").innerText =
+    "Safety timer is active";
+
+document.getElementById("timeSelection")
+    .classList.add("hidden");
+
+document.getElementById("activeControls")
+    .classList.add("show");
+
+const initialRemaining = Math.ceil(
+    (expiryTime.getTime() - Date.now()) / 1000
+);
+
+if (initialRemaining > 0) {
+
+    updateDisplay(initialRemaining);
+
+    startCountdown();
+
+} else {
+
+    updateDisplay(0);
+
+    timerRunning = false;
+    expiryHandled = true;
+
+    timerExpired();
+}
+
+{% endif %}
+
+</script>
+
+</body>
+</html>

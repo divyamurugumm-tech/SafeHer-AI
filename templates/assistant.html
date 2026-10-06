@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SafeHer Assistant | SafeHer AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7c3aed;
+            --secondary: #ec4899;
+            --dark: #181827;
+            --muted: #74748a;
+            --border: rgba(124, 58, 237, 0.10);
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            color: var(--dark);
+
+            background:
+                radial-gradient(
+                    circle at 5% 5%,
+                    rgba(124, 58, 237, 0.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 95% 15%,
+                    rgba(236, 72, 153, 0.10),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    #faf9ff,
+                    #f6f4ff 55%,
+                    #fff8fc
+                );
+
+            overflow-x: hidden;
+        }
+
+        /* ================= TOPBAR ================= */
+
+        .topbar {
+            height: 76px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background: rgba(255, 255, 255, 0.84);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            box-shadow:
+                0 8px 22px rgba(124, 58, 237, 0.25);
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            border-radius: 12px;
+
+            background: white;
+
+            color: #555568;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            border: 1px solid var(--border);
+
+            transition: 0.25s;
+        }
+
+        .logout:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(124, 58, 237, 0.10);
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+
+            margin: 30px auto 70px;
+        }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--primary);
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 24px;
+
+            transition: 0.2s;
+        }
+
+        .back:hover {
+            transform: translateX(-4px);
+        }
+
+        /* ================= PAGE HEADER ================= */
+
+        .page-header {
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(28px, 5vw, 40px);
+
+            letter-spacing: -1.4px;
+
+            margin-bottom: 9px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+
+            max-width: 600px;
+
+            margin: auto;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ================= MAIN CARD ================= */
+
+        .assistant-card {
+            background: rgba(255, 255, 255, 0.88);
+
+            backdrop-filter: blur(20px);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 60px rgba(20, 10, 50, 0.08);
+        }
+
+        /* ================= ASSISTANT HEADER ================= */
+
+        .assistant-header {
+            padding: 28px;
+
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124, 58, 237, 0.07),
+                    rgba(236, 72, 153, 0.06)
+                );
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        .bot-icon-wrapper {
+            position: relative;
+
+            flex-shrink: 0;
+        }
+
+        .bot-icon {
+            width: 68px;
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 21px;
+
+            color: white;
+
+            font-size: 27px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            box-shadow:
+                0 12px 28px rgba(124, 58, 237, 0.25);
+        }
+
+        .online-dot {
+            position: absolute;
+
+            right: -2px;
+            bottom: -2px;
+
+            width: 17px;
+            height: 17px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            border: 3px solid white;
+        }
+
+        .assistant-title h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .assistant-title p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .status {
+            margin-left: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 7px 11px;
+
+            border-radius: 999px;
+
+            background: rgba(34, 197, 94, 0.09);
+
+            color: #15803d;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* ================= CHAT ================= */
+
+        .chat-box {
+            height: 410px;
+
+            overflow-y: auto;
+
+            padding: 24px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #fbfbff,
+                    #f8fafc
+                );
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: #ddd6fe;
+            border-radius: 10px;
+        }
+
+        .message {
+            display: flex;
+
+            margin-bottom: 17px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .bubble {
+            max-width: 78%;
+
+            padding: 13px 16px;
+
+            border-radius: 18px;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            animation:
+                messageAppear 0.25s ease;
+        }
+
+        @keyframes messageAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .message.bot .bubble {
+            background: white;
+
+            color: #334155;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-bottom-left-radius: 5px;
+
+            box-shadow:
+                0 5px 15px rgba(15, 23, 42, 0.04);
+        }
+
+        .message.user .bubble {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            border-bottom-right-radius: 5px;
+
+            box-shadow:
+                0 7px 18px rgba(124, 58, 237, 0.18);
+        }
+
+        /* ================= TYPING ================= */
+
+        .typing {
+            display: none;
+
+            width: fit-content;
+
+            padding: 9px 13px;
+
+            border-radius: 14px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .typing::after {
+            content: "...";
+
+            animation: dots 1s infinite;
+        }
+
+        @keyframes dots {
+
+            0% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+
+        }
+
+        /* ================= QUICK ACTIONS ================= */
+
+        .quick-section {
+            padding: 17px 20px;
+
+            border-top:
+                1px solid #eeeef4;
+
+            background: white;
+        }
+
+        .quick-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-bottom: 10px;
+
+            color: #71717a;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .quick-label i {
+            color: var(--primary);
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-actions button {
+            border:
+                1px solid #ddd6fe;
+
+            background:
+                #faf5ff;
+
+            color:
+                #6d28d9;
+
+            padding:
+                9px 13px;
+
+            border-radius:
+                999px;
+
+            cursor: pointer;
+
+            font-family:
+                inherit;
+
+            font-size:
+                11px;
+
+            font-weight:
+                600;
+
+            transition:
+                0.2s;
+        }
+
+        .quick-actions button:hover {
+            transform: translateY(-2px);
+
+            background: #f3e8ff;
+
+            box-shadow:
+                0 5px 12px rgba(124,58,237,0.10);
+        }
+
+        /* ================= INPUT ================= */
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 17px 20px;
+
+            background: white;
+
+            border-top:
+                1px solid #eeeef4;
+        }
+
+        .input-wrapper {
+            flex: 1;
+
+            position: relative;
+        }
+
+        #messageInput {
+            width: 100%;
+
+            padding: 14px 17px;
+
+            border:
+                1px solid #dfe2ea;
+
+            border-radius: 15px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            background: #f9fafb;
+
+            transition: 0.2s;
+        }
+
+        #messageInput:focus {
+            border-color: #a78bfa;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(124,58,237,0.07);
+        }
+
+        #sendButton,
+        #voiceButton {
+            width: 46px;
+            height: 46px;
+
+            flex-shrink: 0;
+
+            border: none;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 7px 17px rgba(124,58,237,0.18);
+        }
+
+        #sendButton:hover,
+        #voiceButton:hover {
+            transform: translateY(-2px);
+        }
+
+        #voiceButton {
+            background:
+                linear-gradient(
+                    135deg,
+                    #8b5cf6,
+                    #a855f7
+                );
+        }
+
+        /* ================= FOOTER INFO ================= */
+
+        .privacy-note {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            padding: 13px 20px;
+
+            color: #8a8a9a;
+
+            background: #fafafa;
+
+            border-top:
+                1px solid #eeeef4;
+
+            font-size: 10px;
+
+            text-align: center;
+        }
+
+        .privacy-note i {
+            color: #7c3aed;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            .topbar {
+                padding: 0 5%;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 24px;
+            }
+
+            .assistant-card {
+                border-radius: 22px;
+            }
+
+            .assistant-header {
+                padding: 21px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .chat-box {
+                height: 390px;
+                padding: 18px;
+            }
+
+            .bubble {
+                max-width: 88%;
+            }
+
+            .quick-section,
+            .input-area {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+        }
+
+        @media (max-width: 430px) {
+
+            .brand-name {
+                font-size: 18px;
+            }
+
+            .logout {
+                padding: 9px 12px;
+            }
+
+            .logout span {
+                display: none;
+            }
+
+            .assistant-header {
+                gap: 12px;
+            }
+
+            .bot-icon {
+                width: 58px;
+                height: 58px;
+                font-size: 23px;
+            }
+
+            .assistant-title h2 {
+                font-size: 17px;
+            }
+
+            .assistant-title p {
+                font-size: 10px;
+            }
+
+            #messageInput {
+                padding: 12px;
+                font-size: 12px;
+            }
+
+            #sendButton,
+            #voiceButton {
+                width: 42px;
+                height: 42px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= TOPBAR ================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+        </div>
+
+        <div class="brand-name">
+            SafeHer <span>AI</span>
+        </div>
+
+    </div>
+
+
+    <a
+        href="{{ url_for('logout') }}"
+        class="logout"
+    >
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        <span>Logout</span>
+
+    </a>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="back"
+    >
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to Dashboard
+
+    </a>
+
+
+    <section class="page-header">
+
+        <div class="eyebrow">
+            Smart Safety Support
+        </div>
+
+        <h1>
+            SafeHer Assistant
+        </h1>
+
+        <p>
+            Get quick guidance about SOS, trusted contacts,
+            GPS location, Safety Timer and everyday safety.
+        </p>
+
+    </section>
+
+
+    <!-- ================= ASSISTANT ================= -->
+
+    <section class="assistant-card">
+
+
+        <!-- HEADER -->
+
+        <div class="assistant-header">
+
+            <div class="bot-icon-wrapper">
+
+                <div class="bot-icon">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+
+                <span class="online-dot"></span>
+
+            </div>
+
+
+            <div class="assistant-title">
+
+                <h2>
+                    SafeHer Safety Assistant
+                </h2>
+
+                <p>
+                    Rule-based safety guidance
+                </p>
+
+            </div>
+
+
+            <div class="status">
+
+                <i class="fa-solid fa-circle"></i>
+
+                Online
+
+            </div>
+
+        </div>
+
+
+        <!-- CHAT -->
+
+        <div
+            id="chatBox"
+            class="chat-box"
+        >
+
+
+            <div class="message bot">
+
+                <div class="bubble">
+
+                    👋 Hi! I'm SafeHer Assistant.<br><br>
+
+                    I can help you with SOS,
+                    trusted contacts, GPS location,
+                    Safety Timer, travel safety
+                    and other SafeHer features.
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="typing"
+                class="typing"
+            >
+                Assistant is typing
+            </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="quick-section">
+
+            <div class="quick-label">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                Quick Safety Questions
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <button
+                    onclick="quickMessage('What should I do in an emergency?')"
+                >
+                    🚨 Emergency
+                </button>
+
+
+                <button
+                    onclick="quickMessage('How does SOS work?')"
+                >
+                    🆘 SOS
+                </button>
+
+
+                <button
+                    onclick="quickMessage('How does Safety Timer work?')"
+                >
+                    ⏱️ Safety Timer
+                </button>
+
+
+                <button
+                    onclick="quickMessage('How can I stay safe while travelling?')"
+                >
+                    🛡️ Travel Safety
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- INPUT -->
+
+        <div class="input-area">
+
+
+            <div class="input-wrapper">
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Ask a safety question..."
+                    autocomplete="off"
+                    onkeydown="handleEnter(event)"
+                >
+
+            </div>
+
+
+            <button
+                id="voiceButton"
+                onclick="startVoice()"
+                title="Voice input"
+            >
+
+                <i class="fa-solid fa-microphone"></i>
+
+            </button>
+
+
+            <button
+                id="sendButton"
+                onclick="sendMessage()"
+                title="Send message"
+            >
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+
+        </div>
+
+
+        <!-- PRIVACY NOTE -->
+
+        <div class="privacy-note">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            SafeHer Assistant uses built-in rule-based safety guidance.
+            It does not make real emergency calls.
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* ================= ELEMENTS ================= */
+
+const input =
+    document.getElementById("messageInput");
+
+const chatBox =
+    document.getElementById("chatBox");
+
+const typing =
+    document.getElementById("typing");
+
+
+/* ================= ADD MESSAGE ================= */
+
+function addMessage(text, sender) {
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + sender;
+
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble";
+
+
+    bubble.innerHTML =
+        text.replace(/\n/g, "<br>");
+
+
+    message.appendChild(bubble);
+
+
+    chatBox.insertBefore(
+        message,
+        typing
+    );
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+}
+
+
+/* ================= QUICK MESSAGE ================= */
+
+function quickMessage(text) {
+
+    input.value = text;
+
+    sendMessage();
+
+}
+
+
+/* ================= ENTER ================= */
+
+function handleEnter(event) {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        sendMessage();
+
+    }
+
+}
+
+
+/* ================= RULE BASED RESPONSE ================= */
+
+function getReply(message) {
+
+    const text =
+        message.toLowerCase();
+
+
+    if (
+        text.includes("emergency") ||
+        text.includes("danger") ||
+        text.includes("unsafe")
+    ) {
+
+        return "🚨 If you are in immediate danger, move toward a safe public place and contact a trusted person or appropriate local emergency service. You can also use SafeHer SOS to alert your trusted contacts.";
+
+    }
+
+
+    if (
+        text.includes("sos") ||
+        text.includes("alert")
+    ) {
+
+        return "🆘 SafeHer SOS can send an emergency alert with your location to your trusted contacts. Make sure your trusted contacts are added before you need the feature.";
+
+    }
+
+
+    if (
+        text.includes("timer") ||
+        text.includes("safety timer")
+    ) {
+
+        return "⏱️ Safety Timer lets you choose a time period. If you do not check in before the timer expires, SafeHer can trigger the safety alert flow.";
+
+    }
+
+
+    if (
+        text.includes("contact") ||
+        text.includes("trusted")
+    ) {
+
+        return "👥 You can add multiple trusted contacts. SafeHer is designed to notify all trusted contacts associated with your logged-in account.";
+
+    }
+
+
+    if (
+        text.includes("location") ||
+        text.includes("gps")
+    ) {
+
+        return "📍 SafeHer can use your browser's GPS location for safety features such as SOS and Live Location. Please allow location permission when the browser asks.";
+
+    }
+
+
+    if (
+        text.includes("travel") ||
+        text.includes("travelling") ||
+        text.includes("traveling")
+    ) {
+
+        return "🛡️ While travelling, keep your phone charged, share your plans with someone you trust, stay aware of your surroundings, and use SafeHer's safety tools when needed.";
+
+    }
+
+
+    if (
+        text.includes("hello") ||
+        text.includes("hi") ||
+        text.includes("hey")
+    ) {
+
+        return "👋 Hi! How can I help you with SafeHer safety features?";
+
+    }
+
+
+    return "💡 I can help you with SOS, Safety Timer, Trusted Contacts, GPS/Location, travel safety, and other SafeHer features. Try asking about one of these.";
+
+}
+
+
+/* ================= SEND ================= */
+
+function sendMessage() {
+
+    const text =
+        input.value.trim();
+
+
+    if (!text) {
+        return;
+    }
+
+
+    addMessage(
+        text,
+        "user"
+    );
+
+
+    input.value = "";
+
+
+    typing.style.display =
+        "block";
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+
+    setTimeout(function() {
+
+        typing.style.display =
+            "none";
+
+
+        const reply =
+            getReply(text);
+
+
+        addMessage(
+            reply,
+            "bot"
+        );
+
+    }, 600);
+
+}
+
+
+/* ================= VOICE INPUT ================= */
+
+function startVoice() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        alert(
+            "Voice input is not supported by this browser."
+        );
+
+        return;
+
+    }
+
+
+    const recognition =
+        new SpeechRecognition();
+
+
+    recognition.lang =
+        "en-IN";
+
+
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        false;
+
+
+    recognition.onstart =
+        function() {
+
+            input.placeholder =
+                "Listening...";
+
+        };
+
+
+    recognition.onresult =
+        function(event) {
+
+            input.value =
+                event.results[0][0].transcript;
+
+
+            input.placeholder =
+                "Ask a safety question...";
+
+
+            sendMessage();
+
+        };
+
+
+    recognition.onerror =
+        function() {
+
+            input.placeholder =
+                "Ask a safety question...";
+
+        };
+
+
+    recognition.onend =
+        function() {
+
+            input.placeholder =
+                "Ask a safety question...";
+
+        };
+
+
+    recognition.start();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

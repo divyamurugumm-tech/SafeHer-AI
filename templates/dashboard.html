@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | SafeHer AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --pink: #ec4899;
+            --danger: #ef4444;
+            --text: #171724;
+            --muted: #77778a;
+            --card: rgba(255,255,255,0.86);
+            --border: rgba(124,58,237,0.10);
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+
+            background:
+                radial-gradient(circle at 10% 10%, rgba(124,58,237,0.12), transparent 28%),
+                radial-gradient(circle at 90% 20%, rgba(236,72,153,0.10), transparent 28%),
+                linear-gradient(135deg, #faf9ff, #f7f5ff 50%, #fff8fc);
+
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .topbar {
+            height: 76px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(124,58,237,0.08);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            color: white;
+
+            box-shadow: 0 8px 22px rgba(124,58,237,0.25);
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text span {
+            color: var(--primary);
+        }
+
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 16px;
+
+            border-radius: 12px;
+
+            color: #555568;
+            text-decoration: none;
+
+            background: white;
+            border: 1px solid var(--border);
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.25s;
+        }
+
+        .logout:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124,58,237,0.10);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1180px;
+            margin: 42px auto 70px;
+        }
+
+        .welcome {
+            margin-bottom: 28px;
+        }
+
+        .welcome-label {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(28px, 4vw, 40px);
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 8px;
+        }
+
+        .welcome h1 span {
+            background: linear-gradient(90deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* =========================
+           FLASH
+        ========================= */
+
+        .message {
+            padding: 14px 17px;
+            margin-bottom: 20px;
+
+            border-radius: 14px;
+
+            background: rgba(124,58,237,0.08);
+            border: 1px solid rgba(124,58,237,0.12);
+
+            color: var(--primary-dark);
+            font-size: 14px;
+        }
+
+        /* =========================
+           SOS HERO
+        ========================= */
+
+        .sos-card {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 340px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 42px 55px;
+
+            margin-bottom: 38px;
+
+            border-radius: 30px;
+
+            background:
+                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.20), transparent 25%),
+                linear-gradient(135deg, #6d28d9, #7c3aed 45%, #ec4899);
+
+            color: white;
+
+            box-shadow:
+                0 25px 55px rgba(124,58,237,0.24);
+        }
+
+        .sos-card::before {
+            content: "";
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            border-radius: 50%;
+
+            right: -80px;
+            top: -100px;
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        .sos-card::after {
+            content: "";
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            left: -80px;
+            bottom: -100px;
+
+            background: rgba(255,255,255,0.06);
+        }
+
+        .sos-content {
+            position: relative;
+            z-index: 2;
+            max-width: 560px;
+        }
+
+        .sos-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 12px;
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.20);
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+        .sos-content h2 {
+            font-size: clamp(27px, 4vw, 38px);
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .sos-content p {
+            color: rgba(255,255,255,0.82);
+            line-height: 1.7;
+            font-size: 15px;
+            max-width: 520px;
+        }
+
+        .sos-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-top: 22px;
+
+            font-size: 13px;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #86efac;
+            box-shadow: 0 0 12px #86efac;
+        }
+
+        /* =========================
+           SOS BUTTON
+        ========================= */
+
+        .sos-action {
+            position: relative;
+            z-index: 3;
+
+            width: 190px;
+            height: 190px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pulse {
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            animation: pulse 2.2s infinite;
+        }
+
+        .pulse:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                transform: scale(0.75);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.25);
+                opacity: 0;
+            }
+        }
+
+        .sos-button {
+            position: relative;
+            z-index: 5;
+
+            width: 142px;
+            height: 142px;
+
+            border-radius: 50%;
+            border: 10px solid rgba(255,255,255,0.22);
+
+            background: white;
+            color: #dc2626;
+
+            font-size: 27px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.20),
+                inset 0 0 0 2px rgba(239,68,68,0.08);
+
+            transition: 0.25s;
+        }
+
+        .sos-button:hover {
+            transform: scale(1.06);
+            box-shadow:
+                0 18px 40px rgba(0,0,0,0.25),
+                inset 0 0 0 2px rgba(239,68,68,0.08);
+        }
+
+        .sos-button:active {
+            transform: scale(0.96);
+        }
+
+        .sos-button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-size: 23px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* =========================
+           TOOLS
+        ========================= */
+
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .tool {
+            position: relative;
+            overflow: hidden;
+
+            padding: 24px;
+
+            min-height: 190px;
+
+            display: flex;
+            flex-direction: column;
+
+            text-decoration: none;
+            color: var(--text);
+
+            background: var(--card);
+            backdrop-filter: blur(15px);
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+
+            box-shadow: 0 8px 30px rgba(20,10,50,0.06);
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                border-color 0.25s;
+        }
+
+        .tool::after {
+            content: "";
+
+            position: absolute;
+
+            width: 90px;
+            height: 90px;
+
+            right: -35px;
+            bottom: -40px;
+
+            border-radius: 50%;
+
+            background: rgba(124,58,237,0.05);
+        }
+
+        .tool:hover {
+            transform: translateY(-6px);
+
+            border-color: rgba(124,58,237,0.18);
+
+            box-shadow:
+                0 16px 35px rgba(20,10,50,0.10);
+        }
+
+        .tool-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            margin-bottom: 17px;
+
+            background: rgba(124,58,237,0.10);
+            color: var(--primary);
+
+            font-size: 21px;
+        }
+
+        .tool:nth-child(2) .tool-icon {
+            background: rgba(236,72,153,0.10);
+            color: var(--pink);
+        }
+
+        .tool:nth-child(3) .tool-icon {
+            background: rgba(59,130,246,0.10);
+            color: #2563eb;
+        }
+
+        .tool:nth-child(4) .tool-icon {
+            background: rgba(245,158,11,0.10);
+            color: #d97706;
+        }
+
+        .tool:nth-child(5) .tool-icon {
+            background: rgba(16,185,129,0.10);
+            color: #059669;
+        }
+
+        .tool:nth-child(6) .tool-icon {
+            background: rgba(14,165,233,0.10);
+            color: #0284c7;
+        }
+
+        .tool:nth-child(7) .tool-icon {
+            background: rgba(139,92,246,0.10);
+            color: #7c3aed;
+        }
+
+        .tool h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .tool p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 45px;
+
+            color: #9999aa;
+            font-size: 12px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sos-card {
+                padding: 35px;
+            }
+
+            .tools {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sos-action {
+                width: 160px;
+                height: 160px;
+            }
+
+            .pulse {
+                width: 160px;
+                height: 160px;
+            }
+
+            .sos-button {
+                width: 125px;
+                height: 125px;
+            }
+        }
+
+        @media (max-width: 680px) {
+
+            .topbar {
+                height: 68px;
+                padding: 0 5%;
+            }
+
+            .brand-text {
+                font-size: 18px;
+            }
+
+            .logout {
+                padding: 9px 12px;
+            }
+
+            .logout span {
+                display: none;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 30px;
+            }
+
+            .sos-card {
+                min-height: auto;
+
+                flex-direction: column;
+                text-align: center;
+
+                gap: 30px;
+
+                padding: 32px 20px;
+            }
+
+            .sos-content {
+                max-width: 100%;
+            }
+
+            .sos-status {
+                justify-content: center;
+            }
+
+            .tools {
+                grid-template-columns: 1fr;
+            }
+
+            .tool {
+                min-height: 165px;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .sos-content h2 {
+                font-size: 27px;
+            }
+
+            .sos-button {
+                width: 115px;
+                height: 115px;
+                font-size: 23px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+        </div>
+
+        <div class="brand-text">
+            SafeHer <span>AI</span>
+        </div>
+
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+    </a>
+
+</header>
+
+
+<main class="container">
+
+    <!-- =========================
+         WELCOME
+    ========================= -->
+
+    <section class="welcome">
+
+        <div class="welcome-label">
+            Personal Safety Center
+        </div>
+
+        <h1>
+            Welcome back,
+            <span>{{ user.name }}</span> 👋
+        </h1>
+
+        <p>
+            Your safety tools are ready whenever you need them.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         FLASH MESSAGES
+    ========================= -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    <i class="fa-solid fa-circle-info"></i>
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         QUICK SOS
+    ========================= -->
+
+    <section class="sos-card">
+
+        <div class="sos-content">
+
+            <div class="sos-badge">
+                <i class="fa-solid fa-bolt"></i>
+                QUICK EMERGENCY
+            </div>
+
+            <h2>
+                Need help right now?
+            </h2>
+
+            <p>
+                Press SOS to share your current location
+                with all your trusted contacts.
+            </p>
+
+            <div class="sos-status">
+
+                <span class="status-dot"></span>
+
+                Emergency protection is ready
+
+            </div>
+
+        </div>
+
+
+        <div class="sos-action">
+
+            <div class="pulse"></div>
+            <div class="pulse"></div>
+
+            <button
+                id="quickSOSButton"
+                class="sos-button"
+                onclick="quickSOS()"
+            >
+                SOS
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SAFETY TOOLS
+    ========================= -->
+
+    <div class="section-heading">
+
+        <div>
+            <h2>Safety Tools</h2>
+            <p>Everything you need in one place.</p>
+        </div>
+
+    </div>
+
+
+    <section class="tools">
+
+
+        <!-- LIVE LOCATION -->
+
+        <a href="{{ url_for('live_map') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+
+            <h3>Live Location</h3>
+
+            <p>
+                View your current location and
+                keep location information available
+                for emergencies.
+            </p>
+
+        </a>
+
+
+        <!-- VOICE SOS -->
+
+        <a href="{{ url_for('voice_sos') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-microphone"></i>
+            </div>
+
+            <h3>Voice SOS</h3>
+
+            <p>
+                Use supported voice commands to
+                activate your emergency assistance flow.
+            </p>
+
+        </a>
+
+
+        <!-- TRUSTED CONTACTS -->
+
+        <a href="{{ url_for('emergency_contacts') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-user-group"></i>
+            </div>
+
+            <h3>Trusted Contacts</h3>
+
+            <p>
+                Manage the people who should receive
+                your emergency alerts.
+            </p>
+
+        </a>
+
+
+        <!-- SAFETY TIMER -->
+
+        <a href="{{ url_for('safety_timer') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-stopwatch"></i>
+            </div>
+
+            <h3>Safety Timer</h3>
+
+            <p>
+                Start a safety timer and check in
+                before it reaches the end.
+            </p>
+
+        </a>
+
+
+        <!-- ASSISTANT -->
+
+        <a href="{{ url_for('assistant') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+
+            <h3>SafeHer Assistant</h3>
+
+            <p>
+                Get quick safety guidance from
+                the built-in rule-based assistant.
+            </p>
+
+        </a>
+
+
+        <!-- NEARBY HELP -->
+
+        <a href="{{ url_for('nearby_help') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-location-crosshairs"></i>
+            </div>
+
+            <h3>Nearby Help</h3>
+
+            <p>
+                Find useful nearby emergency
+                services and assistance.
+            </p>
+
+        </a>
+
+
+        <!-- FAKE CALL -->
+
+        <a href="{{ url_for('fake_call') }}" class="tool">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+
+            <h3>Fake Call</h3>
+
+            <p>
+                Start a simulated incoming call
+                screen when you need one.
+            </p>
+
+        </a>
+
+    </section>
+
+
+    <div class="footer">
+        <i class="fa-solid fa-shield-halved"></i>
+        SafeHer AI · Personal Safety Assistant
+    </div>
+
+</main>
+
+
+<!-- =========================
+     QUICK SOS SCRIPT
+========================= -->
+
+<script>
+
+async function quickSOS() {
+
+    const button =
+        document.getElementById("quickSOSButton");
+
+    if (!button || button.disabled) {
+        return;
+    }
+
+    if (!navigator.geolocation) {
+
+        alert(
+            "GPS is not supported by this browser."
+        );
+
+        return;
+    }
+
+
+    button.disabled = true;
+
+    button.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        async function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            const formData =
+                new FormData();
+
+            formData.append(
+                "latitude",
+                latitude
+            );
+
+            formData.append(
+                "longitude",
+                longitude
+            );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "{{ url_for('send_sos') }}",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                if (response.ok) {
+
+                    alert(
+                        "🚨 SOS sent successfully!\n\n" +
+                        "Your trusted contacts have been notified."
+                    );
+
+                } else {
+
+                    alert(
+                        "❌ Could not send SOS."
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "SOS error:",
+                    error
+                );
+
+                alert(
+                    "❌ Connection error. Please try again."
+                );
+
+            }
+
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "SOS";
+
+        },
+
+
+        function(error) {
+
+            console.error(
+                "GPS Error:",
+                error
+            );
+
+            alert(
+                "⚠️ Unable to get your location.\n\n" +
+                "Please allow location permission in your browser."
+            );
+
+
+            button.disabled = false;
+
+            button.innerHTML =
+                "SOS";
+
+        },
+
+
+        {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maximumAge: 60000
+        }
+
+    );
+
+}
+
+</script>
+
+</body>
+</html>
