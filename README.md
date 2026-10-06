@@ -38,6 +38,8 @@ Emergency contacts are identified
 SOS alert is sent
         ↓
 Google Maps location is shared
+```
+
 ## 📸 Screenshots
 
 ### 🏠 Dashboard
