@@ -52,4 +52,4 @@ Google Maps location is shared
 ![Safety Timer](screenshots/safety-timer.png.png)
 
 ### 🎙️ fake call
-![Voice SOS](screenshots/fakecall.png.png)
+![Fake call](screenshots/fakecall.png.png)
