@@ -51,5 +51,5 @@ Google Maps location is shared
 ### ⏱️ Safety Timer
 ![Safety Timer](screenshots/safety-timer.png.png)
 
-### 🎙️ Voice SOS
-![Voice SOS](screenshots/voice-sos.png.png)
+### 🎙️ fake call
+![Voice SOS](screenshots/fakecall.png.png)
