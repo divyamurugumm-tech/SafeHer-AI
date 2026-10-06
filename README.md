@@ -38,3 +38,16 @@ Emergency contacts are identified
 SOS alert is sent
         ↓
 Google Maps location is shared
+## 📸 Screenshots
+
+### 🏠 Dashboard
+![SafeHer Dashboard](screenshots/dashboard.png)
+
+### 🚨 Quick SOS
+![SafeHer SOS](screenshots/sos.png)
+
+### ⏱️ Safety Timer
+![Safety Timer](screenshots/safety-timer.png)
+
+### 🎙️ Voice SOS
+![Voice SOS](screenshots/voice-sos.png)
