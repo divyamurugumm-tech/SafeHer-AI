@@ -43,13 +43,13 @@ Google Maps location is shared
 ## 📸 Screenshots
 
 ### 🏠 Dashboard
-![SafeHer Dashboard](screenshots/dashboard.png)
+![SafeHer Dashboard](screenshots/dashboard.png.png)
 
 ### 🚨 Quick SOS
-![SafeHer SOS](screenshots/sos.png)
+![SafeHer SOS](screenshots/sos.png.png)
 
 ### ⏱️ Safety Timer
-![Safety Timer](screenshots/safety-timer.png)
+![Safety Timer](screenshots/safety-timer.png.png)
 
 ### 🎙️ Voice SOS
-![Voice SOS](screenshots/voice-sos.png)
+![Voice SOS](screenshots/voice-sos.png.png)
